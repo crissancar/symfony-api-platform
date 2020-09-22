@@ -5,7 +5,7 @@ namespace App\Repository;
 
 
 use App\Entity\User;
-use App\Exceptions\User\UserNotFoundException;
+use App\Exception\User\UserNotFoundException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
@@ -21,6 +21,15 @@ class UserRepository extends BaseRepository
     {
         if(null === $user = $this->objectRepository->findOneBy(['email' => $email])){
             throw UserNotFoundException::fromEmail($email);
+        }
+
+        return $user;
+    }
+
+    public function findOneInactiveByIdAndTokenOrFail(string $id, string $token): User
+    {
+        if(null === $user = $this->objectRepository->findOneBy(['id' => $id, 'token' => $token, 'active' => false])){
+            throw UserNotFoundException::fromUserIdAndToken($id, $token);
         }
 
         return $user;

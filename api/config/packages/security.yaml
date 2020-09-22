@@ -2,8 +2,10 @@ security:
     encoders:
         App\Entity\User:
             algorithm: auto
+
     providers:
         users_in_memory: { memory: null }
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
