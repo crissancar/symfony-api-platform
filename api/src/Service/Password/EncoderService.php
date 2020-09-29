@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service\Password;
-
 
 use App\Entity\User;
 use App\Exception\Password\PasswordException;
@@ -22,7 +20,7 @@ class EncoderService
 
     public function generateEncodedPassword(UserInterface $user, string $password)
     {
-        if(self::MINIMUM_LENGTH > strlen($password)){
+        if (self::MINIMUM_LENGTH > strlen($password)) {
             throw PasswordException::invalidLength();
         }
 

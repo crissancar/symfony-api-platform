@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository;
-
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -20,7 +18,8 @@ abstract class BaseRepository
     protected Connection $connection;
     protected ObjectRepository $objectRepository;
 
-    public function __construct(ManagerRegistry $managerRegistry, Connection $connection){
+    public function __construct(ManagerRegistry $managerRegistry, Connection $connection)
+    {
         $this->managerRegistry = $managerRegistry;
         $this->connection = $connection;
         $this->objectRepository = $this->getEntityManager()->getRepository($this->entityClass());
@@ -31,17 +30,20 @@ abstract class BaseRepository
     /**
      * @throws ORMException
      */
-    public function persistEntity(object $entity){
+    public function persistEntity(object $entity)
+    {
         $this->getEntityManager()->persist($entity);
     }
 
     //Persistir varias entidades y guardarlas en la base de datos al mismo tiempo
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws MappingException
      */
-    public function flushData(): void{
+    public function flushData(): void
+    {
         $this->getEntityManager()->flush();
         $this->getEntityManager()->clear();
     }
@@ -50,7 +52,8 @@ abstract class BaseRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveEntity(object $entity){
+    public function saveEntity(object $entity)
+    {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
@@ -59,7 +62,8 @@ abstract class BaseRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function removeEntity(object $entity){
+    public function removeEntity(object $entity)
+    {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
@@ -83,10 +87,11 @@ abstract class BaseRepository
     /**
      * @return ObjectManager|EntityManager
      */
-    private function getEntityManager(){
+    private function getEntityManager()
+    {
         $entityManager = $this->managerRegistry->getManager();
 
-        if($entityManager->isOpen()){
+        if ($entityManager->isOpen()) {
             return $entityManager;
         }
 

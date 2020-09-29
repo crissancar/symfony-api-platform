@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security\Core\User;
-
 
 use App\Entity\User;
 use App\Exception\User\UserNotFoundException;
@@ -15,12 +13,10 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
-
     private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
-
         $this->userRepository = $userRepository;
     }
 
@@ -28,14 +24,14 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     {
         try {
             return $this->userRepository->findOneByEmailOrFail($username);
-        }catch (UserNotFoundException $e){
+        } catch (UserNotFoundException $e) {
             throw new UsernameNotFoundException(sprintf('User %s not found', $username));
         }
     }
 
     public function refreshUser(UserInterface $user): UserInterface
     {
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of %s are not supported', get_class($user)));
         }
 

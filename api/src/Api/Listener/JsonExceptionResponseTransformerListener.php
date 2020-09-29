@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Listener;
-
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -14,7 +12,7 @@ class JsonExceptionResponseTransformerListener
     {
         $exception = $event->getThrowable();
 
-        if($exception instanceof HttpExceptionInterface){
+        if ($exception instanceof HttpExceptionInterface) {
             $data = [
                 'class' => get_class($exception),
                 'code' => $exception->getStatusCode(),

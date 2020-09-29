@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\ArgumentResolver;
-
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -25,13 +23,13 @@ class UserArgumentResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        if(User::class !== $argument->getType()){
+        if (User::class !== $argument->getType()) {
             return false;
         }
 
         $token = $this->tokenStorage->getToken();
 
-        if(!$token instanceof TokenInterface){
+        if (!$token instanceof TokenInterface) {
             return false;
         }
 

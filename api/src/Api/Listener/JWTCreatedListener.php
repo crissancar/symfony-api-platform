@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Api\Listener;
-
 
 use App\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;

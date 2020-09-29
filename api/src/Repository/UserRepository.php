@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository;
-
 
 use App\Entity\User;
 use App\Exception\User\UserNotFoundException;
@@ -11,15 +9,23 @@ use Doctrine\ORM\ORMException;
 
 class UserRepository extends BaseRepository
 {
-
     protected static function entityClass(): string
     {
         return User::class;
     }
 
+    public function findOneById(string $id): User
+    {
+        if (null === $user = $this->objectRepository->find($id)) {
+            throw UserNotFoundException::fromUserId($id);
+        }
+
+        return $user;
+    }
+
     public function findOneByEmailOrFail(string $email): User
     {
-        if(null === $user = $this->objectRepository->findOneBy(['email' => $email])){
+        if (null === $user = $this->objectRepository->findOneBy(['email' => $email])) {
             throw UserNotFoundException::fromEmail($email);
         }
 
@@ -28,7 +34,7 @@ class UserRepository extends BaseRepository
 
     public function findOneInactiveByIdAndTokenOrFail(string $id, string $token): User
     {
-        if(null === $user = $this->objectRepository->findOneBy(['id' => $id, 'token' => $token, 'active' => false])){
+        if (null === $user = $this->objectRepository->findOneBy(['id' => $id, 'token' => $token, 'active' => false])) {
             throw UserNotFoundException::fromUserIdAndToken($id, $token);
         }
 
@@ -61,5 +67,4 @@ class UserRepository extends BaseRepository
     {
         $this->removeEntity($user);
     }
-
 }
