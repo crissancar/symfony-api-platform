@@ -7,7 +7,7 @@ namespace App\Repository;
 use App\Entity\Group;
 use App\Exception\Group\GroupNotFoundException;
 
-class GroupRespository extends BaseRepository
+class GroupRepository extends BaseRepository
 {
     protected static function entityClass(): string
     {

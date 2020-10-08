@@ -28,21 +28,33 @@ abstract class BaseRepository
     abstract protected static function entityClass(): string;
 
     /**
+     * @return ObjectManager|EntityManager
+     */
+    public function getEntityManager()
+    {
+        $entityManager = $this->managerRegistry->getManager();
+
+        if ($entityManager->isOpen()) {
+            return $entityManager;
+        }
+
+        return $this->managerRegistry->resetManager();
+    }
+
+    /**
      * @throws ORMException
      */
-    public function persistEntity(object $entity)
+    protected function persistEntity(object $entity)
     {
         $this->getEntityManager()->persist($entity);
     }
-
-    //Persistir varias entidades y guardarlas en la base de datos al mismo tiempo
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws MappingException
      */
-    public function flushData(): void
+    protected function flushData(): void
     {
         $this->getEntityManager()->flush();
         $this->getEntityManager()->clear();
@@ -52,7 +64,7 @@ abstract class BaseRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveEntity(object $entity)
+    protected function saveEntity(object $entity)
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
@@ -62,7 +74,7 @@ abstract class BaseRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function removeEntity(object $entity)
+    protected function removeEntity(object $entity)
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
@@ -82,19 +94,5 @@ abstract class BaseRepository
     protected function executeFetchQuery(string $query, array $params = []): array
     {
         return $this->connection->executeQuery($query, $params)->fetchAll();
-    }
-
-    /**
-     * @return ObjectManager|EntityManager
-     */
-    private function getEntityManager()
-    {
-        $entityManager = $this->managerRegistry->getManager();
-
-        if ($entityManager->isOpen()) {
-            return $entityManager;
-        }
-
-        return $this->managerRegistry->resetManager();
     }
 }
