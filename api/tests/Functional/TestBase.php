@@ -115,5 +115,44 @@ class TestBase extends WebTestCase
         return $this->initDbConnection()->query('SELECT id FROM user_group WHERE name = "Julia Group"')->fetchColumn(0);
     }
 
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getBrianExpenseCategoryId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM category WHERE name = "Brian Expense Category"')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getJuliaExpenseCategoryId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM category WHERE name = "Julia Expense Category"')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getBrianGroupExpenseCategoryId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM category WHERE name = "Brian Group Expense Category"')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getJuliaGroupExpenseCategoryId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM category WHERE name = "Julia Group Expense Category"')->fetchColumn(0);
+    }
 
 }
