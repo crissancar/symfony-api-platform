@@ -155,4 +155,45 @@ class TestBase extends WebTestCase
         return $this->initDbConnection()->query('SELECT id FROM category WHERE name = "Julia Group Expense Category"')->fetchColumn(0);
     }
 
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getJuliaMovementId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM movement WHERE amount = 100')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getJuliaGroupMovementId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM movement WHERE amount = 1000')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getBrianMovementId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM movement WHERE amount = 200')->fetchColumn(0);
+    }
+
+    /**
+     * @return false|mixed
+     *
+     * @throws DBALException
+     */
+    protected function getBrianGroupMovementId()
+    {
+        return $this->initDbConnection()->query('SELECT id FROM movement WHERE amount = 2000')->fetchColumn(0);
+    }
+
+
 }

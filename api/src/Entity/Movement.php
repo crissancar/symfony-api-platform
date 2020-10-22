@@ -6,26 +6,25 @@ namespace App\Entity;
 
 use Symfony\Component\Uid\Uuid;
 
-class Category
+class Movement
 {
-    public const EXPENSE = 'expense';
-    public const INCOME = 'income';
-
     private string $id;
-    private string $name;
-    private string $type;
+    private Category $category;
     private User $owner;
     private ?Group $group;
+    private float $amount;
+    private ?string $filePath;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
 
-    public function __construct(string $name, string $type, User $owner, ?Group $group = null)
+    public function __construct(Category $category, User $owner, float $amount, Group $group = null)
     {
         $this->id = Uuid::v4()->toRfc4122();
-        $this->name = $name;
-        $this->type = $type;
+        $this->category = $category;
         $this->owner = $owner;
         $this->group = $group;
+        $this->amount = $amount;
+        $this->filePath = null;
         $this->createdAt = new \DateTime();
         $this->markAsUpdated();
     }
@@ -39,27 +38,19 @@ class Category
     }
 
     /**
-     * @return string
+     * @return Category
      */
-    public function getName(): string
+    public function getCategory(): Category
     {
-        return $this->name;
+        return $this->category;
     }
 
     /**
-     * @param string $name
+     * @param Category $category
      */
-    public function setName(string $name): void
+    public function setCategory(Category $category): void
     {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
+        $this->category = $category;
     }
 
     /**
@@ -76,6 +67,38 @@ class Category
     public function getGroup(): ?Group
     {
         return $this->group;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param float $amount
+     */
+    public function setAmount(float $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    /**
+     * @param string|null $filePath
+     */
+    public function setFilePath(?string $filePath): void
+    {
+        $this->filePath = $filePath;
     }
 
     /**

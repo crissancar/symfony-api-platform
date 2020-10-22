@@ -3,7 +3,7 @@ App\Entity\Group:
     id:
       groups: [group_read]
     name:
-      groups: [group_read, group_create, group_update]
+      groups: [group_read, group_create, group_update, movement_read]
     owner:
       groups: [group_read, group_create]
     users:
@@ -13,4 +13,6 @@ App\Entity\Group:
     updatedAt:
       groups: [group_read]
     categories:
+      groups: [group_read]
+    movements:
       groups: [group_read]
